@@ -1,0 +1,14 @@
+# QA Environment Configuration
+base_url: https://qa.example.com
+timeout: 35000
+api_url: https://api-qa.example.com
+database:
+  host: qa-db.example.com
+  port: 5432
+  name: test_db_qa
+credentials:
+  admin_user: admin@qa.example.com
+  admin_password: QaPass123!
+features:
+  new_ui: true
+  beta_features: true

@@ -1,0 +1,137 @@
+stages:
+  - quality
+  - test
+  - report
+  - deploy
+
+variables:
+  PYTHON_VERSION: "3.11"
+  PIP_CACHE_DIR: "$CI_PROJECT_DIR/.cache/pip"
+
+cache:
+  paths:
+    - .cache/pip
+    - venv/
+
+before_script:
+  - python --version
+  - pip install virtualenv
+  - virtualenv venv
+  - source venv/bin/activate
+  - pip install -r requirements.txt
+
+# Code Quality Stage
+code-quality:
+  stage: quality
+  image: python:3.11
+  script:
+    - black --check --diff .
+    - flake8 .
+    - pylint pages/ utils/ config/ || true
+    - bandit -r pages/ utils/ config/ -f json -o bandit-report.json || true
+  artifacts:
+    reports:
+      codequality: bandit-report.json
+    paths:
+      - bandit-report.json
+    expire_in: 1 week
+  only:
+    - merge_requests
+    - main
+    - develop
+
+# Test Stages
+.test_template: &test_definition
+  stage: test
+  image: mcr.microsoft.com/playwright/python:v1.40.0-jammy
+  before_script:
+    - pip install -r requirements.txt
+    - playwright install $BROWSER
+  script:
+    - |
+      ENVIRONMENT=$ENVIRONMENT BROWSER=$BROWSER HEADLESS=true \
+      pytest -m $TEST_SUITE \
+      --alluredir=reports/allure-results \
+      --html=reports/report-$BROWSER-$ENVIRONMENT.html \
+      --self-contained-html \
+      -n auto \
+      -v
+  artifacts:
+    when: always
+    paths:
+      - reports/
+    expire_in: 1 week
+
+test:chrome:dev:
+  <<: *test_definition
+  variables:
+    BROWSER: "chromium"
+    ENVIRONMENT: "dev"
+    TEST_SUITE: "smoke"
+
+test:chrome:qa:
+  <<: *test_definition
+  variables:
+    BROWSER: "chromium"
+    ENVIRONMENT: "qa"
+    TEST_SUITE: "regression"
+  only:
+    - schedules
+    - main
+
+test:firefox:qa:
+  <<: *test_definition
+  variables:
+    BROWSER: "firefox"
+    ENVIRONMENT: "qa"
+    TEST_SUITE: "smoke"
+
+test:webkit:qa:
+  <<: *test_definition
+  variables:
+    BROWSER: "webkit"
+    ENVIRONMENT: "qa"
+    TEST_SUITE: "smoke"
+
+# Generate Allure Report
+generate-report:
+  stage: report
+  image: frankescobar/allure-docker-service:latest
+  script:
+    - allure generate reports/allure-results -o reports/allure-report --clean
+  artifacts:
+    paths:
+      - reports/allure-report
+    expire_in: 30 days
+  dependencies:
+    - test:chrome:dev
+    - test:chrome:qa
+    - test:firefox:qa
+    - test:webkit:qa
+  only:
+    - main
+    - develop
+
+# Deploy Report to Pages
+pages:
+  stage: deploy
+  script:
+    - mkdir -p public
+    - cp -r reports/allure-report/* public/
+  artifacts:
+    paths:
+      - public
+  dependencies:
+    - generate-report
+  only:
+    - main
+
+# Scheduled Nightly Tests
+nightly-regression:
+  <<: *test_definition
+  variables:
+    BROWSER: "chromium"
+    ENVIRONMENT: "qa"
+    TEST_SUITE: "regression"
+  only:
+    - schedules

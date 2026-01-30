@@ -1,0 +1,61 @@
+# Git files
+.git
+.gitignore
+.gitattributes
+
+# Python
+__pycache__
+*.py[cod]
+*$py.class
+*.so
+.Python
+*.egg-info
+dist
+build
+.venv
+venv
+env
+
+# IDE
+.vscode
+.idea
+*.swp
+*.swo
+*~
+
+# Reports and logs
+reports/
+*.log
+.pytest_cache
+.allure
+.coverage
+htmlcov/
+.mypy_cache
+.tox
+
+# Documentation
+docs/
+*.md
+LICENSE
+
+# CI/CD
+.github/
+.gitlab-ci.yml
+azure-pipelines.yml
+Jenkinsfile
+
+# Configuration (keep only necessary)
+.env
+.env.local
+*.example
+
+# Test files (not needed in image)
+tests/
+*.test.py
+
+# Other
+.DS_Store
+Thumbs.db
+*.bak
+*.tmp
+node_modules/

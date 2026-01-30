@@ -1,0 +1,178 @@
+trigger:
+  branches:
+    include:
+      - main
+      - develop
+  paths:
+    exclude:
+      - docs/*
+      - README.md
+
+pr:
+  branches:
+    include:
+      - main
+      - develop
+
+schedules:
+  - cron: "0 2 * * *"
+    displayName: Nightly regression tests
+    branches:
+      include:
+        - main
+    always: true
+
+variables:
+  pythonVersion: '3.11'
+  HEADLESS: 'true'
+
+stages:
+  - stage: CodeQuality
+    displayName: 'Code Quality Checks'
+    jobs:
+      - job: Lint
+        displayName: 'Linting and Security'
+        pool:
+          vmImage: 'ubuntu-latest'
+        steps:
+          - task: UsePythonVersion@0
+            inputs:
+              versionSpec: '$(pythonVersion)'
+            displayName: 'Use Python $(pythonVersion)'
+          
+          - script: |
+              python -m pip install --upgrade pip
+              pip install -r requirements.txt
+            displayName: 'Install dependencies'
+          
+          - script: |
+              black --check --diff .
+            displayName: 'Run Black'
+            continueOnError: true
+          
+          - script: |
+              flake8 .
+            displayName: 'Run Flake8'
+            continueOnError: true
+          
+          - script: |
+              pylint pages/ utils/ config/
+            displayName: 'Run Pylint'
+            continueOnError: true
+          
+          - script: |
+              bandit -r pages/ utils/ config/ -f json -o $(Build.ArtifactStagingDirectory)/bandit-report.json
+            displayName: 'Run Bandit Security Scan'
+            continueOnError: true
+          
+          - task: PublishBuildArtifacts@1
+            inputs:
+              pathToPublish: '$(Build.ArtifactStagingDirectory)'
+              artifactName: 'security-reports'
+
+  - stage: Test
+    displayName: 'Run Tests'
+    dependsOn: CodeQuality
+    jobs:
+      - job: TestChrome
+        displayName: 'Test on Chrome'
+        strategy:
+          matrix:
+            Dev:
+              environment: 'dev'
+              testSuite: 'smoke'
+            QA:
+              environment: 'qa'
+              testSuite: 'regression'
+        pool:
+          vmImage: 'ubuntu-latest'
+        steps:
+          - task: UsePythonVersion@0
+            inputs:
+              versionSpec: '$(pythonVersion)'
+          
+          - script: |
+              python -m pip install --upgrade pip
+              pip install -r requirements.txt
+              playwright install chromium
+            displayName: 'Install dependencies and browsers'
+          
+          - script: |
+              ENVIRONMENT=$(environment) BROWSER=chromium pytest -m $(testSuite) \
+              --alluredir=$(Build.ArtifactStagingDirectory)/allure-results \
+              --html=$(Build.ArtifactStagingDirectory)/report-chrome-$(environment).html \
+              --self-contained-html \
+              -n auto \
+              -v
+            displayName: 'Run tests'
+            env:
+              HEADLESS: $(HEADLESS)
+          
+          - task: PublishTestResults@2
+            condition: always()
+            inputs:
+              testResultsFormat: 'JUnit'
+              testResultsFiles: '**/junit-*.xml'
+              mergeTestResults: true
+              testRunTitle: 'Chrome $(environment) Tests'
+          
+          - task: PublishBuildArtifacts@1
+            condition: always()
+            inputs:
+              pathToPublish: '$(Build.ArtifactStagingDirectory)'
+              artifactName: 'test-results-chrome-$(environment)'
+
+      - job: TestFirefox
+        displayName: 'Test on Firefox'
+        pool:
+          vmImage: 'ubuntu-latest'
+        steps:
+          - task: UsePythonVersion@0
+            inputs:
+              versionSpec: '$(pythonVersion)'
+          
+          - script: |
+              python -m pip install --upgrade pip
+              pip install -r requirements.txt
+              playwright install firefox
+            displayName: 'Install dependencies'
+          
+          - script: |
+              ENVIRONMENT=qa BROWSER=firefox pytest -m smoke \
+              --alluredir=$(Build.ArtifactStagingDirectory)/allure-results \
+              --html=$(Build.ArtifactStagingDirectory)/report-firefox.html \
+              --self-contained-html \
+              -v
+            displayName: 'Run Firefox tests'
+          
+          - task: PublishBuildArtifacts@1
+            condition: always()
+            inputs:
+              pathToPublish: '$(Build.ArtifactStagingDirectory)'
+              artifactName: 'test-results-firefox'
+
+  - stage: Report
+    displayName: 'Generate Reports'
+    dependsOn: Test
+    condition: always()
+    jobs:
+      - job: AllureReport
+        displayName: 'Generate Allure Report'
+        pool:
+          vmImage: 'ubuntu-latest'
+        steps:
+          - task: DownloadBuildArtifacts@0
+            inputs:
+              buildType: 'current'
+              downloadType: 'specific'
+              downloadPath: '$(System.ArtifactsDirectory)'
+          
+          - script: |
+              npm install -g allure-commandline
+              allure generate $(System.ArtifactsDirectory)/**/allure-results -o $(Build.ArtifactStagingDirectory)/allure-report --clean
+            displayName: 'Generate Allure Report'
+          
+          - task: PublishBuildArtifacts@1
+            inputs:
+              pathToPublish: '$(Build.ArtifactStagingDirectory)/allure-report'
+              artifactName: 'allure-report'

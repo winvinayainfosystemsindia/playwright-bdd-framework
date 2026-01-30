@@ -1,0 +1,130 @@
+version: '3.8'
+
+services:
+  # Development environment
+  test-dev:
+    build:
+      context: .
+      dockerfile: Dockerfile
+      target: application
+    container_name: playwright-bdd-dev
+    environment:
+      - ENVIRONMENT=dev
+      - BROWSER=chromium
+      - HEADLESS=true
+      - BASE_URL=https://dev.example.com
+    volumes:
+      - ./reports:/app/reports
+      - ./config:/app/config
+      - ./features:/app/features
+    command: pytest -m smoke --alluredir=reports/allure-results -v
+    networks:
+      - test-network
+
+  # QA environment
+  test-qa:
+    build:
+      context: .
+      dockerfile: Dockerfile
+      target: application
+    container_name: playwright-bdd-qa
+    environment:
+      - ENVIRONMENT=qa
+      - BROWSER=chromium
+      - HEADLESS=true
+      - BASE_URL=https://qa.example.com
+    volumes:
+      - ./reports:/app/reports
+    command: pytest -m regression --alluredir=reports/allure-results -n auto -v
+    networks:
+      - test-network
+
+  # Production smoke tests
+  test-prod:
+    build:
+      context: .
+      dockerfile: Dockerfile
+      target: application
+    container_name: playwright-bdd-prod
+    environment:
+      - ENVIRONMENT=prod
+      - BROWSER=chromium
+      - HEADLESS=true
+      - BASE_URL=https://example.com
+    volumes:
+      - ./reports:/app/reports
+    command: pytest -m smoke --alluredir=reports/allure-results -v
+    networks:
+      - test-network
+
+  # Multi-browser testing
+  test-chrome:
+    build:
+      context: .
+      dockerfile: Dockerfile
+      target: ci
+    container_name: playwright-chrome
+    environment:
+      - ENVIRONMENT=qa
+      - BROWSER=chromium
+      - HEADLESS=true
+    volumes:
+      - ./reports/chrome:/app/reports
+    command: pytest -m smoke --alluredir=reports/allure-results -v
+    networks:
+      - test-network
+
+  test-firefox:
+    build:
+      context: .
+      dockerfile: Dockerfile
+      target: ci
+    container_name: playwright-firefox
+    environment:
+      - ENVIRONMENT=qa
+      - BROWSER=firefox
+      - HEADLESS=true
+    volumes:
+      - ./reports/firefox:/app/reports
+    command: pytest -m smoke --alluredir=reports/allure-results -v
+    networks:
+      - test-network
+
+  test-webkit:
+    build:
+      context: .
+      dockerfile: Dockerfile
+      target: ci
+    container_name: playwright-webkit
+    environment:
+      - ENVIRONMENT=qa
+      - BROWSER=webkit
+      - HEADLESS=true
+    volumes:
+      - ./reports/webkit:/app/reports
+    command: pytest -m smoke --alluredir=reports/allure-results -v
+    networks:
+      - test-network
+
+  # Allure report server
+  allure:
+    image: frankescobar/allure-docker-service:latest
+    container_name: allure-server
+    ports:
+      - "5050:5050"
+    environment:
+      - CHECK_RESULTS_EVERY_SECONDS=5
+      - KEEP_HISTORY=1
+    volumes:
+      - ./reports/allure-results:/app/allure-results
+      - ./reports/allure-reports:/app/default-reports
+    networks:
+      - test-network
+
+networks:
+  test-network:
+    driver: bridge
+
+volumes:
+  reports:
+    driver: local

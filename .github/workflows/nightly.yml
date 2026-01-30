@@ -1,0 +1,154 @@
+name: Nightly Regression Tests
+
+on:
+  schedule:
+    # Run every night at 2 AM UTC
+    - cron: '0 2 * * *'
+  workflow_dispatch:
+
+env:
+  PYTHON_VERSION: '3.11'
+
+jobs:
+  regression-tests:
+    name: Full Regression Suite
+    runs-on: ubuntu-latest
+    
+    strategy:
+      matrix:
+        browser: [chromium, firefox, webkit]
+        environment: [dev, qa, prod]
+      fail-fast: false
+    
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+      
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: ${{ env.PYTHON_VERSION }}
+          cache: 'pip'
+      
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
+      
+      - name: Install Playwright browsers
+        run: playwright install ${{ matrix.browser }}
+      
+      - name: Run regression tests
+        env:
+          ENVIRONMENT: ${{ matrix.environment }}
+          BROWSER: ${{ matrix.browser }}
+          HEADLESS: true
+        run: |
+          pytest -m regression --alluredir=reports/allure-results \
+            --html=reports/report-${{ matrix.browser }}-${{ matrix.environment }}.html \
+            --self-contained-html \
+            -n auto \
+            --reruns 2 \
+            --reruns-delay 1 \
+            -v
+      
+      - name: Upload test results
+        uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: regression-results-${{ matrix.browser }}-${{ matrix.environment }}
+          path: |
+            reports/
+            !reports/screenshots/
+            !reports/videos/
+      
+      - name: Upload failure artifacts
+        uses: actions/upload-artifact@v4
+        if: failure()
+        with:
+          name: failure-artifacts-${{ matrix.browser }}-${{ matrix.environment }}
+          path: |
+            reports/screenshots/
+            reports/videos/
+            reports/logs/
+
+  performance-tests:
+    name: Performance Benchmarks
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+      
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: ${{ env.PYTHON_VERSION }}
+          cache: 'pip'
+      
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
+      
+      - name: Install Playwright browsers
+        run: playwright install chromium
+      
+      - name: Run performance tests
+        env:
+          ENVIRONMENT: qa
+          BROWSER: chromium
+          HEADLESS: true
+        run: |
+          pytest tests/ --benchmark-only --benchmark-json=reports/benchmark.json || true
+      
+      - name: Upload benchmark results
+        uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: performance-benchmarks
+          path: reports/benchmark.json
+
+  generate-report:
+    name: Generate Consolidated Report
+    runs-on: ubuntu-latest
+    needs: [regression-tests, performance-tests]
+    if: always()
+    
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+      
+      - name: Download all artifacts
+        uses: actions/download-artifact@v4
+        with:
+          path: all-reports
+      
+      - name: Generate Allure Report
+        uses: simple-elf/allure-report-action@master
+        if: always()
+        with:
+          allure_results: all-reports/**/allure-results
+          allure_history: allure-history
+          keep_reports: 30
+      
+      - name: Deploy to GitHub Pages
+        if: always()
+        uses: peaceiris/actions-gh-pages@v3
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_branch: gh-pages
+          publish_dir: allure-history
+      
+      - name: Send email notification
+        if: failure()
+        uses: dawidd6/action-send-mail@v3
+        with:
+          server_address: smtp.gmail.com
+          server_port: 465
+          username: ${{ secrets.EMAIL_USERNAME }}
+          password: ${{ secrets.EMAIL_PASSWORD }}
+          subject: Nightly Regression Tests Failed
+          body: The nightly regression test suite has failed. Please check the Allure report for details.
+          to: ${{ secrets.NOTIFICATION_EMAIL }}
+          from: Test Automation

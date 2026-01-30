@@ -1,0 +1,113 @@
+# Pylint Configuration for Test Automation Framework
+
+[MASTER]
+# Use multiple processes to speed up Pylint
+jobs=4
+
+# Pickle collected data for later comparisons
+persistent=yes
+
+# List of plugins
+load-plugins=
+
+[MESSAGES CONTROL]
+# Disable specific warnings
+disable=
+    C0111,  # missing-docstring
+    C0103,  # invalid-name (for test methods)
+    R0903,  # too-few-public-methods
+    R0913,  # too-many-arguments
+    W0212,  # protected-access (needed for page objects)
+    C0301,  # line-too-long (handled by black)
+    R0801,  # duplicate-code (common in tests)
+
+[REPORTS]
+# Set the output format
+output-format=colorized
+
+# Include message's id in output
+include-ids=yes
+
+# Evaluation score
+score=yes
+
+[BASIC]
+# Good variable names
+good-names=i,j,k,ex,Run,_,id,qa
+
+# Regular expression for constant names
+const-rgx=(([A-Z_][A-Z0-9_]*)|(__.*__))$
+
+# Regular expression for class names
+class-rgx=[A-Z_][a-zA-Z0-9]+$
+
+# Regular expression for function names
+function-rgx=[a-z_][a-z0-9_]{2,50}$
+
+# Regular expression for method names
+method-rgx=[a-z_][a-z0-9_]{2,50}$
+
+# Regular expression for attribute names
+attr-rgx=[a-z_][a-z0-9_]{2,50}$
+
+# Regular expression for argument names
+argument-rgx=[a-z_][a-z0-9_]{2,50}$
+
+# Regular expression for variable names
+variable-rgx=[a-z_][a-z0-9_]{2,50}$
+
+[FORMAT]
+# Maximum number of characters on a single line
+max-line-length=120
+
+# Maximum number of lines in a module
+max-module-lines=1000
+
+# String used for indentation
+indent-string='    '
+
+[DESIGN]
+# Maximum number of arguments for function / method
+max-args=10
+
+# Maximum number of locals for function / method body
+max-locals=20
+
+# Maximum number of return / yield for function / method body
+max-returns=6
+
+# Maximum number of branch for function / method body
+max-branches=15
+
+# Maximum number of statements in function / method body
+max-statements=50
+
+# Maximum number of parents for a class
+max-parents=7
+
+# Maximum number of attributes for a class
+max-attributes=15
+
+# Minimum number of public methods for a class
+min-public-methods=0
+
+# Maximum number of public methods for a class
+max-public-methods=25
+
+[IMPORTS]
+# Deprecated modules
+deprecated-modules=optparse,tkinter.tix
+
+[CLASSES]
+# List of method names used to declare instance attributes
+defining-attr-methods=__init__,__new__,setUp
+
+# List of valid names for the first argument in a class method
+valid-classmethod-first-arg=cls
+
+# List of valid names for the first argument in a metaclass class method
+valid-metaclass-classmethod-first-arg=mcs
+
+[EXCEPTIONS]
+# Exceptions that will emit a warning when being caught
+overgeneral-exceptions=Exception

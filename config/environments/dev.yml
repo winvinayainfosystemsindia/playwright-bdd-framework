@@ -1,0 +1,14 @@
+# Development Environment Configuration
+base_url: https://dev.example.com
+timeout: 30000
+api_url: https://api-dev.example.com
+database:
+  host: dev-db.example.com
+  port: 5432
+  name: test_db_dev
+credentials:
+  admin_user: admin@dev.example.com
+  admin_password: DevPass123!
+features:
+  new_ui: true
+  beta_features: true

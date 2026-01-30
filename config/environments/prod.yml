@@ -1,0 +1,14 @@
+# Production Environment Configuration
+base_url: https://www.example.com
+timeout: 40000
+api_url: https://api.example.com
+database:
+  host: prod-db.example.com
+  port: 5432
+  name: test_db_prod
+credentials:
+  admin_user: admin@example.com
+  admin_password: ProdPass123!
+features:
+  new_ui: false
+  beta_features: false
