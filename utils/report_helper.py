@@ -196,6 +196,42 @@ class ReportHelper:
         """
         allure.dynamic.link(url, name=name)
 
+    @staticmethod
+    def generate_csv_report(results: List[Dict[str, Any]]) -> str:
+        """
+        Generate a CSV report from test results.
+        
+        Args:
+            results: List of dictionaries containing test results
+            
+        Returns:
+            Path to the generated CSV file
+        """
+        import csv
+        
+        timestamp = datetime.now().strftime('%Y%m%d_%H%M%S')
+        csv_file = config.reports_dir / f"test_results_{timestamp}.csv"
+        
+        try:
+            with open(csv_file, 'w', newline='', encoding='utf-8') as f:
+                fieldnames = ['test_name', 'status', 'duration', 'error_message']
+                writer = csv.DictWriter(f, fieldnames=fieldnames)
+                
+                writer.writeheader()
+                for result in results:
+                    writer.writerow({
+                        'test_name': result.get('name', 'N/A'),
+                        'status': result.get('status', 'N/A'),
+                        'duration': f"{result.get('duration', 0):.2f}s",
+                        'error_message': result.get('error', '').replace('\n', ' ')
+                    })
+            
+            logger.info(f"CSV report generated: {csv_file}")
+            return str(csv_file)
+        except Exception as e:
+            logger.error(f"Failed to generate CSV report: {str(e)}")
+            return ""
+
 
 def allure_step(step_name: str):
     """

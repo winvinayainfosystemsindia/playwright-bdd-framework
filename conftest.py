@@ -10,52 +10,63 @@ from datetime import datetime
 from typing import Generator
 from playwright.sync_api import Page
 from pytest_bdd import given, when, then
-from config.config import config
+from config.config import config as project_config
 from utils.logger import Logger
 from utils.screenshot_helper import ScreenshotHelper
 from utils.report_helper import ReportHelper
 from pages.login_page import LoginPage
 from pages.home_page import HomePage
 from pages.registration_page import RegistrationPage
+from pages.winvinaya_foundation_page import WinVinayaFoundationPage
 
 
 logger = Logger.get_logger(__name__)
+
+
+# Global list to store test results for CSV reporting
+test_results = []
+
+
+# List of plugins to load
+pytest_plugins = [
+    "fixtures.browser_fixtures"
+]
 
 
 # ============================================================================
 # Pytest Configuration Hooks
 # ============================================================================
 
-def pytest_configure(config_obj):
+def pytest_configure(config):
     """
     Pytest configuration hook - called before test collection.
     
     Args:
-        config_obj: Pytest config object
+        config: Pytest config object
     """
     logger.info("=" * 80)
     logger.info("PYTEST CONFIGURATION STARTED")
     logger.info("=" * 80)
     
     # Create necessary directories
-    config.reports_dir.mkdir(parents=True, exist_ok=True)
-    config.screenshots_dir.mkdir(parents=True, exist_ok=True)
-    config.videos_dir.mkdir(parents=True, exist_ok=True)
-    config.allure_results_dir.mkdir(parents=True, exist_ok=True)
+    project_config.reports_dir.mkdir(parents=True, exist_ok=True)
+    project_config.screenshots_dir.mkdir(parents=True, exist_ok=True)
+    project_config.videos_dir.mkdir(parents=True, exist_ok=True)
+    project_config.allure_results_dir.mkdir(parents=True, exist_ok=True)
     
-    logger.info(f"Environment: {config.environment}")
-    logger.info(f"Browser: {config.browser}")
-    logger.info(f"Base URL: {config.get_base_url()}")
-    logger.info(f"Headless: {config.headless}")
-    logger.info(f"Reports Directory: {config.reports_dir}")
+    logger.info(f"Environment: {project_config.environment}")
+    logger.info(f"Browser: {project_config.browser}")
+    logger.info(f"Base URL: {project_config.get_base_url()}")
+    logger.info(f"Headless: {project_config.headless}")
+    logger.info(f"Reports Directory: {project_config.reports_dir}")
     
     # Add environment info to Allure report
     env_info = {
-        'Environment': config.environment,
-        'Browser': config.browser,
-        'Base_URL': config.get_base_url(),
-        'Headless': str(config.headless),
-        'Timeout': str(config.timeout),
+        'Environment': project_config.environment,
+        'Browser': project_config.browser,
+        'Base_URL': project_config.get_base_url(),
+        'Headless': str(project_config.headless),
+        'Timeout': str(project_config.timeout),
         'Python_Version': os.sys.version.split()[0],
         'Execution_Date': datetime.now().strftime('%Y-%m-%d %H:%M:%S')
     }
@@ -64,12 +75,12 @@ def pytest_configure(config_obj):
     logger.info("Pytest configuration completed")
 
 
-def pytest_collection_modifyitems(config_obj, items):
+def pytest_collection_modifyitems(config, items):
     """
     Modify test items after collection.
     
     Args:
-        config_obj: Pytest config object
+        config: Pytest config object
         items: List of test items
     """
     logger.info(f"Collected {len(items)} test items")
@@ -87,33 +98,7 @@ def pytest_collection_modifyitems(config_obj, items):
 # BDD Hooks
 # ============================================================================
 
-@pytest.fixture
-def pytest_bdd_before_scenario(request):
-    """
-    Hook called before each BDD scenario.
-    
-    Args:
-        request: Pytest request object
-    """
-    scenario_name = request.node.name
-    logger.info("=" * 80)
-    logger.info(f"SCENARIO STARTED: {scenario_name}")
-    logger.info("=" * 80)
-
-
-@pytest.fixture
-def pytest_bdd_after_scenario(request, page: Page):
-    """
-    Hook called after each BDD scenario.
-    
-    Args:
-        request: Pytest request object
-        page: Page instance
-    """
-    scenario_name = request.node.name
-    logger.info("=" * 80)
-    logger.info(f"SCENARIO COMPLETED: {scenario_name}")
-    logger.info("=" * 80)
+# Note: pytest-bdd hooks are handled automatically by the framework
 
 
 # ============================================================================
@@ -161,6 +146,14 @@ def pytest_runtest_makereport(item, call):
             
             elif report.passed:
                 logger.info(f"Test PASSED: {item.name}")
+
+        # Collect result for CSV report
+        test_results.append({
+            'name': item.name,
+            'status': report.outcome,
+            'duration': report.duration,
+            'error': str(report.longrepr) if report.failed else ""
+        })
 
 
 @pytest.fixture(scope='function', autouse=True)
@@ -225,6 +218,20 @@ def registration_page(page: Page) -> RegistrationPage:
     return RegistrationPage(page)
 
 
+@pytest.fixture(scope='function')
+def winvinaya_foundation_page(page: Page) -> WinVinayaFoundationPage:
+    """
+    Function-scoped WinVinayaFoundationPage fixture.
+    
+    Args:
+        page: Page instance
+        
+    Returns:
+        WinVinayaFoundationPage instance
+    """
+    return WinVinayaFoundationPage(page)
+
+
 # ============================================================================
 # Data Fixtures
 # ============================================================================
@@ -237,7 +244,7 @@ def test_data():
     Returns:
         Test data from configuration
     """
-    return config.test_data
+    return project_config.test_data
 
 
 @pytest.fixture(scope='function')
@@ -248,7 +255,7 @@ def valid_user():
     Returns:
         Valid user data
     """
-    return config.get_test_user('valid')
+    return project_config.get_test_user('valid')
 
 
 @pytest.fixture(scope='function')
@@ -259,7 +266,7 @@ def invalid_user():
     Returns:
         Invalid user data
     """
-    return config.get_test_user('invalid')
+    return project_config.get_test_user('invalid')
 
 
 # ============================================================================
@@ -278,6 +285,12 @@ def pytest_sessionfinish(session, exitstatus):
     logger.info("TEST SESSION COMPLETED")
     logger.info(f"Exit Status: {exitstatus}")
     logger.info("=" * 80)
+    
+    # Generate CSV report
+    if test_results:
+        csv_path = ReportHelper.generate_csv_report(test_results)
+        if csv_path:
+            logger.info(f"Final CSV report created at: {csv_path}")
     
     # Clean up old screenshots (older than 7 days)
     try:

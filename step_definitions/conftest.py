@@ -9,11 +9,11 @@ from typing import Dict, Any
 
 # Shared context for scenarios
 @pytest.fixture
-def context() -> Dict[str, Any]:
+def shared_context() -> Dict[str, Any]:
     """
     Shared context dictionary for storing data between steps.
     
     Returns:
-        Empty dictionary for context
+        Empty dictionary for shared context
     """
     return {}
