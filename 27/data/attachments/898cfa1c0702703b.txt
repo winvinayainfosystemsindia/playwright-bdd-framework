@@ -1,0 +1,6 @@
+INFO     conftest:conftest.py:168 Starting test: test_registration_with_existing_email
+INFO     fixtures.browser_fixtures:browser_fixtures.py:42 Launching browser
+INFO     conftest:conftest.py:172 Finished test: test_registration_with_existing_email
+INFO     conftest:conftest.py:168 Starting test: test_registration_with_existing_email
+INFO     fixtures.browser_fixtures:browser_fixtures.py:42 Launching browser
+INFO     conftest:conftest.py:172 Finished test: test_registration_with_existing_email

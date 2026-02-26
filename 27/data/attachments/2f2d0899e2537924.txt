@@ -1,0 +1,8 @@
+INFO     conftest:conftest.py:168 Starting test: test_login_with_invalid_credentials[invalid@test.com-wrong123-Invalid credentials]
+INFO     fixtures.browser_fixtures:browser_fixtures.py:24 Creating browser manager (session scope)
+INFO     fixtures.browser_fixtures:browser_fixtures.py:42 Launching browser
+INFO     utils.browser_manager:browser_manager.py:39 Playwright started successfully
+INFO     conftest:conftest.py:172 Finished test: test_login_with_invalid_credentials[invalid@test.com-wrong123-Invalid credentials]
+INFO     conftest:conftest.py:168 Starting test: test_login_with_invalid_credentials[invalid@test.com-wrong123-Invalid credentials]
+INFO     fixtures.browser_fixtures:browser_fixtures.py:42 Launching browser
+INFO     conftest:conftest.py:172 Finished test: test_login_with_invalid_credentials[invalid@test.com-wrong123-Invalid credentials]

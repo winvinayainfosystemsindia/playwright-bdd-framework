@@ -1,0 +1,6 @@
+INFO     conftest:conftest.py:168 Starting test: test_login_with_invalid_credentials[test@test.com--Password is required]
+INFO     fixtures.browser_fixtures:browser_fixtures.py:42 Launching browser
+INFO     conftest:conftest.py:172 Finished test: test_login_with_invalid_credentials[test@test.com--Password is required]
+INFO     conftest:conftest.py:168 Starting test: test_login_with_invalid_credentials[test@test.com--Password is required]
+INFO     fixtures.browser_fixtures:browser_fixtures.py:42 Launching browser
+INFO     conftest:conftest.py:172 Finished test: test_login_with_invalid_credentials[test@test.com--Password is required]
