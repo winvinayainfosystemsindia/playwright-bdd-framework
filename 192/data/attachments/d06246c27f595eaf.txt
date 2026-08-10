@@ -1,0 +1,52 @@
+INFO     conftest:conftest.py:168 Starting test: test_verify_logo_presence
+INFO     fixtures.browser_fixtures:browser_fixtures.py:42 Launching browser
+INFO     utils.browser_manager:browser_manager.py:74 Chromium browser launched (headless=True)
+INFO     fixtures.browser_fixtures:browser_fixtures.py:60 Creating browser context
+INFO     fixtures.browser_fixtures:browser_fixtures.py:90 Creating new page
+INFO     pages.winvinaya_foundation_page:winvinaya_foundation_page.py:34 WinVinaya Foundation Page initialized
+INFO     step_definitions.winvinaya_foundation_steps:winvinaya_foundation_steps.py:22 Step: Given I navigate to WinVinaya Foundation website
+INFO     pages.winvinaya_foundation_page:winvinaya_foundation_page.py:38 Navigating to WinVinaya Foundation: https://winvinayafoundation.org
+INFO     pages.base_page:base_page.py:42 Navigating to: https://winvinayafoundation.org
+ERROR    pages.base_page:base_page.py:46 Failed to navigate to https://winvinayafoundation.org: Timeout 35000ms exceeded.
+INFO     utils.screenshot_helper:screenshot_helper.py:61 Screenshot captured: /home/runner/work/playwright-bdd-framework/playwright-bdd-framework/reports/screenshots/navigation_error_winvinayafoundation.org.png
+INFO     fixtures.browser_fixtures:browser_fixtures.py:97 Closing page
+INFO     fixtures.browser_fixtures:browser_fixtures.py:75 Closing browser context
+INFO     fixtures.browser_fixtures:browser_fixtures.py:45 Closing browser
+INFO     utils.browser_manager:browser_manager.py:190 Browser closed
+INFO     conftest:conftest.py:172 Finished test: test_verify_logo_presence
+INFO     conftest:conftest.py:168 Starting test: test_verify_logo_presence
+INFO     fixtures.browser_fixtures:browser_fixtures.py:42 Launching browser
+INFO     utils.browser_manager:browser_manager.py:74 Chromium browser launched (headless=True)
+INFO     fixtures.browser_fixtures:browser_fixtures.py:60 Creating browser context
+INFO     fixtures.browser_fixtures:browser_fixtures.py:90 Creating new page
+INFO     pages.winvinaya_foundation_page:winvinaya_foundation_page.py:34 WinVinaya Foundation Page initialized
+INFO     step_definitions.winvinaya_foundation_steps:winvinaya_foundation_steps.py:22 Step: Given I navigate to WinVinaya Foundation website
+INFO     pages.winvinaya_foundation_page:winvinaya_foundation_page.py:38 Navigating to WinVinaya Foundation: https://winvinayafoundation.org
+INFO     pages.base_page:base_page.py:42 Navigating to: https://winvinayafoundation.org
+ERROR    pages.base_page:base_page.py:46 Failed to navigate to https://winvinayafoundation.org: Timeout 35000ms exceeded.
+INFO     utils.screenshot_helper:screenshot_helper.py:61 Screenshot captured: /home/runner/work/playwright-bdd-framework/playwright-bdd-framework/reports/screenshots/navigation_error_winvinayafoundation.org.png
+INFO     fixtures.browser_fixtures:browser_fixtures.py:97 Closing page
+INFO     fixtures.browser_fixtures:browser_fixtures.py:75 Closing browser context
+INFO     fixtures.browser_fixtures:browser_fixtures.py:45 Closing browser
+INFO     utils.browser_manager:browser_manager.py:190 Browser closed
+INFO     conftest:conftest.py:172 Finished test: test_verify_logo_presence
+INFO     conftest:conftest.py:168 Starting test: test_verify_logo_presence
+INFO     fixtures.browser_fixtures:browser_fixtures.py:42 Launching browser
+INFO     utils.browser_manager:browser_manager.py:74 Chromium browser launched (headless=True)
+INFO     fixtures.browser_fixtures:browser_fixtures.py:60 Creating browser context
+INFO     fixtures.browser_fixtures:browser_fixtures.py:90 Creating new page
+INFO     pages.winvinaya_foundation_page:winvinaya_foundation_page.py:34 WinVinaya Foundation Page initialized
+INFO     step_definitions.winvinaya_foundation_steps:winvinaya_foundation_steps.py:22 Step: Given I navigate to WinVinaya Foundation website
+INFO     pages.winvinaya_foundation_page:winvinaya_foundation_page.py:38 Navigating to WinVinaya Foundation: https://winvinayafoundation.org
+INFO     pages.base_page:base_page.py:42 Navigating to: https://winvinayafoundation.org
+ERROR    pages.base_page:base_page.py:46 Failed to navigate to https://winvinayafoundation.org: Timeout 35000ms exceeded.
+INFO     utils.screenshot_helper:screenshot_helper.py:61 Screenshot captured: /home/runner/work/playwright-bdd-framework/playwright-bdd-framework/reports/screenshots/navigation_error_winvinayafoundation.org.png
+INFO     fixtures.browser_fixtures:browser_fixtures.py:97 Closing page
+INFO     fixtures.browser_fixtures:browser_fixtures.py:75 Closing browser context
+INFO     fixtures.browser_fixtures:browser_fixtures.py:45 Closing browser
+INFO     utils.browser_manager:browser_manager.py:190 Browser closed
+INFO     conftest:conftest.py:172 Finished test: test_verify_logo_presence
+INFO     fixtures.browser_fixtures:browser_fixtures.py:27 Cleaning up browser manager
+INFO     utils.browser_manager:browser_manager.py:204 Starting browser cleanup...
+INFO     utils.browser_manager:browser_manager.py:199 Playwright stopped
+INFO     utils.browser_manager:browser_manager.py:209 Browser cleanup completed
