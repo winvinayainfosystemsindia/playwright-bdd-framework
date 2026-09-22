@@ -1,0 +1,49 @@
+INFO     conftest:conftest.py:168 Starting test: test_registration_with_existing_email
+INFO     fixtures.browser_fixtures:browser_fixtures.py:42 Launching browser
+INFO     utils.browser_manager:browser_manager.py:74 Chromium browser launched (headless=True)
+INFO     fixtures.browser_fixtures:browser_fixtures.py:60 Creating browser context
+INFO     fixtures.browser_fixtures:browser_fixtures.py:90 Creating new page
+INFO     step_definitions.registration_steps:registration_steps.py:24 Step: Given I am on the registration page
+INFO     pages.registration_page:registration_page.py:45 Navigating to registration page
+INFO     pages.base_page:base_page.py:42 Navigating to: https://qa.example.com/register
+ERROR    pages.base_page:base_page.py:46 Failed to navigate to https://qa.example.com/register: net::ERR_NAME_NOT_RESOLVED at https://qa.example.com/register
+INFO     utils.screenshot_helper:screenshot_helper.py:61 Screenshot captured: /home/runner/work/playwright-bdd-framework/playwright-bdd-framework/reports/screenshots/navigation_error_register.png
+INFO     fixtures.browser_fixtures:browser_fixtures.py:97 Closing page
+INFO     fixtures.browser_fixtures:browser_fixtures.py:75 Closing browser context
+INFO     fixtures.browser_fixtures:browser_fixtures.py:45 Closing browser
+INFO     utils.browser_manager:browser_manager.py:190 Browser closed
+INFO     conftest:conftest.py:172 Finished test: test_registration_with_existing_email
+INFO     conftest:conftest.py:168 Starting test: test_registration_with_existing_email
+INFO     fixtures.browser_fixtures:browser_fixtures.py:42 Launching browser
+INFO     utils.browser_manager:browser_manager.py:74 Chromium browser launched (headless=True)
+INFO     fixtures.browser_fixtures:browser_fixtures.py:60 Creating browser context
+INFO     fixtures.browser_fixtures:browser_fixtures.py:90 Creating new page
+INFO     step_definitions.registration_steps:registration_steps.py:24 Step: Given I am on the registration page
+INFO     pages.registration_page:registration_page.py:45 Navigating to registration page
+INFO     pages.base_page:base_page.py:42 Navigating to: https://qa.example.com/register
+ERROR    pages.base_page:base_page.py:46 Failed to navigate to https://qa.example.com/register: net::ERR_NAME_NOT_RESOLVED at https://qa.example.com/register
+INFO     utils.screenshot_helper:screenshot_helper.py:61 Screenshot captured: /home/runner/work/playwright-bdd-framework/playwright-bdd-framework/reports/screenshots/navigation_error_register.png
+INFO     fixtures.browser_fixtures:browser_fixtures.py:97 Closing page
+INFO     fixtures.browser_fixtures:browser_fixtures.py:75 Closing browser context
+INFO     fixtures.browser_fixtures:browser_fixtures.py:45 Closing browser
+INFO     utils.browser_manager:browser_manager.py:190 Browser closed
+INFO     conftest:conftest.py:172 Finished test: test_registration_with_existing_email
+INFO     conftest:conftest.py:168 Starting test: test_registration_with_existing_email
+INFO     fixtures.browser_fixtures:browser_fixtures.py:42 Launching browser
+INFO     utils.browser_manager:browser_manager.py:74 Chromium browser launched (headless=True)
+INFO     fixtures.browser_fixtures:browser_fixtures.py:60 Creating browser context
+INFO     fixtures.browser_fixtures:browser_fixtures.py:90 Creating new page
+INFO     step_definitions.registration_steps:registration_steps.py:24 Step: Given I am on the registration page
+INFO     pages.registration_page:registration_page.py:45 Navigating to registration page
+INFO     pages.base_page:base_page.py:42 Navigating to: https://qa.example.com/register
+ERROR    pages.base_page:base_page.py:46 Failed to navigate to https://qa.example.com/register: net::ERR_NAME_NOT_RESOLVED at https://qa.example.com/register
+INFO     utils.screenshot_helper:screenshot_helper.py:61 Screenshot captured: /home/runner/work/playwright-bdd-framework/playwright-bdd-framework/reports/screenshots/navigation_error_register.png
+INFO     fixtures.browser_fixtures:browser_fixtures.py:97 Closing page
+INFO     fixtures.browser_fixtures:browser_fixtures.py:75 Closing browser context
+INFO     fixtures.browser_fixtures:browser_fixtures.py:45 Closing browser
+INFO     utils.browser_manager:browser_manager.py:190 Browser closed
+INFO     conftest:conftest.py:172 Finished test: test_registration_with_existing_email
+INFO     fixtures.browser_fixtures:browser_fixtures.py:27 Cleaning up browser manager
+INFO     utils.browser_manager:browser_manager.py:204 Starting browser cleanup...
+INFO     utils.browser_manager:browser_manager.py:199 Playwright stopped
+INFO     utils.browser_manager:browser_manager.py:209 Browser cleanup completed
