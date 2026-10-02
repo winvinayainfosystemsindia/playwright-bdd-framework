@@ -1,0 +1,49 @@
+INFO     conftest:conftest.py:168 Starting test: test_registration_with_weak_password
+INFO     fixtures.browser_fixtures:browser_fixtures.py:42 Launching browser
+INFO     utils.browser_manager:browser_manager.py:74 Chromium browser launched (headless=True)
+INFO     fixtures.browser_fixtures:browser_fixtures.py:60 Creating browser context
+INFO     fixtures.browser_fixtures:browser_fixtures.py:90 Creating new page
+INFO     step_definitions.registration_steps:registration_steps.py:24 Step: Given I am on the registration page
+INFO     pages.registration_page:registration_page.py:45 Navigating to registration page
+INFO     pages.base_page:base_page.py:42 Navigating to: https://www.example.com/register
+INFO     pages.base_page:base_page.py:44 Successfully navigated to: https://www.example.com/register
+INFO     step_definitions.registration_steps:registration_steps.py:92 Step: When I enter a weak password
+INFO     fixtures.browser_fixtures:browser_fixtures.py:97 Closing page
+INFO     fixtures.browser_fixtures:browser_fixtures.py:75 Closing browser context
+INFO     fixtures.browser_fixtures:browser_fixtures.py:45 Closing browser
+INFO     utils.browser_manager:browser_manager.py:190 Browser closed
+INFO     conftest:conftest.py:172 Finished test: test_registration_with_weak_password
+INFO     conftest:conftest.py:168 Starting test: test_registration_with_weak_password
+INFO     fixtures.browser_fixtures:browser_fixtures.py:42 Launching browser
+INFO     utils.browser_manager:browser_manager.py:74 Chromium browser launched (headless=True)
+INFO     fixtures.browser_fixtures:browser_fixtures.py:60 Creating browser context
+INFO     fixtures.browser_fixtures:browser_fixtures.py:90 Creating new page
+INFO     step_definitions.registration_steps:registration_steps.py:24 Step: Given I am on the registration page
+INFO     pages.registration_page:registration_page.py:45 Navigating to registration page
+INFO     pages.base_page:base_page.py:42 Navigating to: https://www.example.com/register
+INFO     pages.base_page:base_page.py:44 Successfully navigated to: https://www.example.com/register
+INFO     step_definitions.registration_steps:registration_steps.py:92 Step: When I enter a weak password
+INFO     fixtures.browser_fixtures:browser_fixtures.py:97 Closing page
+INFO     fixtures.browser_fixtures:browser_fixtures.py:75 Closing browser context
+INFO     fixtures.browser_fixtures:browser_fixtures.py:45 Closing browser
+INFO     utils.browser_manager:browser_manager.py:190 Browser closed
+INFO     conftest:conftest.py:172 Finished test: test_registration_with_weak_password
+INFO     conftest:conftest.py:168 Starting test: test_registration_with_weak_password
+INFO     fixtures.browser_fixtures:browser_fixtures.py:42 Launching browser
+INFO     utils.browser_manager:browser_manager.py:74 Chromium browser launched (headless=True)
+INFO     fixtures.browser_fixtures:browser_fixtures.py:60 Creating browser context
+INFO     fixtures.browser_fixtures:browser_fixtures.py:90 Creating new page
+INFO     step_definitions.registration_steps:registration_steps.py:24 Step: Given I am on the registration page
+INFO     pages.registration_page:registration_page.py:45 Navigating to registration page
+INFO     pages.base_page:base_page.py:42 Navigating to: https://www.example.com/register
+INFO     pages.base_page:base_page.py:44 Successfully navigated to: https://www.example.com/register
+INFO     step_definitions.registration_steps:registration_steps.py:92 Step: When I enter a weak password
+INFO     fixtures.browser_fixtures:browser_fixtures.py:97 Closing page
+INFO     fixtures.browser_fixtures:browser_fixtures.py:75 Closing browser context
+INFO     fixtures.browser_fixtures:browser_fixtures.py:45 Closing browser
+INFO     utils.browser_manager:browser_manager.py:190 Browser closed
+INFO     conftest:conftest.py:172 Finished test: test_registration_with_weak_password
+INFO     fixtures.browser_fixtures:browser_fixtures.py:27 Cleaning up browser manager
+INFO     utils.browser_manager:browser_manager.py:204 Starting browser cleanup...
+INFO     utils.browser_manager:browser_manager.py:199 Playwright stopped
+INFO     utils.browser_manager:browser_manager.py:209 Browser cleanup completed
