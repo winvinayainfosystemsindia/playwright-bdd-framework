@@ -1,0 +1,15 @@
+INFO     conftest:conftest.py:168 Starting test: test_login_with_invalid_credentials[test@test.com--Password is required]
+INFO     fixtures.browser_fixtures:browser_fixtures.py:42 Launching browser
+INFO     utils.browser_manager:browser_manager.py:74 Chromium browser launched (headless=True)
+INFO     fixtures.browser_fixtures:browser_fixtures.py:60 Creating browser context
+INFO     fixtures.browser_fixtures:browser_fixtures.py:90 Creating new page
+INFO     step_definitions.login_steps:login_steps.py:24 Step: Given I am on the login page
+INFO     pages.login_page:login_page.py:37 Navigating to login page
+INFO     pages.base_page:base_page.py:42 Navigating to: https://qa.example.com/login
+ERROR    pages.base_page:base_page.py:46 Failed to navigate to https://qa.example.com/login: net::ERR_NAME_NOT_RESOLVED at https://qa.example.com/login
+INFO     utils.screenshot_helper:screenshot_helper.py:61 Screenshot captured: /home/runner/work/playwright-bdd-framework/playwright-bdd-framework/reports/screenshots/navigation_error_login.png
+INFO     fixtures.browser_fixtures:browser_fixtures.py:97 Closing page
+INFO     fixtures.browser_fixtures:browser_fixtures.py:75 Closing browser context
+INFO     fixtures.browser_fixtures:browser_fixtures.py:45 Closing browser
+INFO     utils.browser_manager:browser_manager.py:190 Browser closed
+INFO     conftest:conftest.py:172 Finished test: test_login_with_invalid_credentials[test@test.com--Password is required]

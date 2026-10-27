@@ -1,0 +1,59 @@
+INFO     conftest:conftest.py:168 Starting test: test_login_with_invalid_credentials[invalid@test.com-wrong123-Invalid credentials]
+INFO     fixtures.browser_fixtures:browser_fixtures.py:24 Creating browser manager (session scope)
+INFO     fixtures.browser_fixtures:browser_fixtures.py:42 Launching browser
+INFO     utils.browser_manager:browser_manager.py:39 Playwright started successfully
+INFO     utils.browser_manager:browser_manager.py:74 Chromium browser launched (headless=True)
+INFO     fixtures.browser_fixtures:browser_fixtures.py:60 Creating browser context
+INFO     fixtures.browser_fixtures:browser_fixtures.py:90 Creating new page
+INFO     step_definitions.login_steps:login_steps.py:24 Step: Given I am on the login page
+INFO     pages.login_page:login_page.py:37 Navigating to login page
+INFO     pages.base_page:base_page.py:42 Navigating to: https://www.example.com/login
+INFO     pages.base_page:base_page.py:44 Successfully navigated to: https://www.example.com/login
+INFO     step_definitions.login_steps:login_steps.py:70 Step: When I enter email 'invalid@test.com' and password
+INFO     pages.login_page:login_page.py:47 Entering email: invalid@test.com
+INFO     pages.base_page:base_page.py:195 Filling element #email with value: invalid@test.com
+ERROR    pages.base_page:base_page.py:200 Failed to fill #email: Timeout 40000ms exceeded.
+INFO     utils.screenshot_helper:screenshot_helper.py:61 Screenshot captured: /home/runner/work/playwright-bdd-framework/playwright-bdd-framework/reports/screenshots/fill_error.png
+INFO     fixtures.browser_fixtures:browser_fixtures.py:97 Closing page
+INFO     fixtures.browser_fixtures:browser_fixtures.py:75 Closing browser context
+INFO     fixtures.browser_fixtures:browser_fixtures.py:45 Closing browser
+INFO     utils.browser_manager:browser_manager.py:190 Browser closed
+INFO     conftest:conftest.py:172 Finished test: test_login_with_invalid_credentials[invalid@test.com-wrong123-Invalid credentials]
+INFO     conftest:conftest.py:168 Starting test: test_login_with_invalid_credentials[invalid@test.com-wrong123-Invalid credentials]
+INFO     fixtures.browser_fixtures:browser_fixtures.py:42 Launching browser
+INFO     utils.browser_manager:browser_manager.py:74 Chromium browser launched (headless=True)
+INFO     fixtures.browser_fixtures:browser_fixtures.py:60 Creating browser context
+INFO     fixtures.browser_fixtures:browser_fixtures.py:90 Creating new page
+INFO     step_definitions.login_steps:login_steps.py:24 Step: Given I am on the login page
+INFO     pages.login_page:login_page.py:37 Navigating to login page
+INFO     pages.base_page:base_page.py:42 Navigating to: https://www.example.com/login
+INFO     pages.base_page:base_page.py:44 Successfully navigated to: https://www.example.com/login
+INFO     step_definitions.login_steps:login_steps.py:70 Step: When I enter email 'invalid@test.com' and password
+INFO     pages.login_page:login_page.py:47 Entering email: invalid@test.com
+INFO     pages.base_page:base_page.py:195 Filling element #email with value: invalid@test.com
+ERROR    pages.base_page:base_page.py:200 Failed to fill #email: Timeout 40000ms exceeded.
+INFO     utils.screenshot_helper:screenshot_helper.py:61 Screenshot captured: /home/runner/work/playwright-bdd-framework/playwright-bdd-framework/reports/screenshots/fill_error.png
+INFO     fixtures.browser_fixtures:browser_fixtures.py:97 Closing page
+INFO     fixtures.browser_fixtures:browser_fixtures.py:75 Closing browser context
+INFO     fixtures.browser_fixtures:browser_fixtures.py:45 Closing browser
+INFO     utils.browser_manager:browser_manager.py:190 Browser closed
+INFO     conftest:conftest.py:172 Finished test: test_login_with_invalid_credentials[invalid@test.com-wrong123-Invalid credentials]
+INFO     conftest:conftest.py:168 Starting test: test_login_with_invalid_credentials[invalid@test.com-wrong123-Invalid credentials]
+INFO     fixtures.browser_fixtures:browser_fixtures.py:42 Launching browser
+INFO     utils.browser_manager:browser_manager.py:74 Chromium browser launched (headless=True)
+INFO     fixtures.browser_fixtures:browser_fixtures.py:60 Creating browser context
+INFO     fixtures.browser_fixtures:browser_fixtures.py:90 Creating new page
+INFO     step_definitions.login_steps:login_steps.py:24 Step: Given I am on the login page
+INFO     pages.login_page:login_page.py:37 Navigating to login page
+INFO     pages.base_page:base_page.py:42 Navigating to: https://www.example.com/login
+INFO     pages.base_page:base_page.py:44 Successfully navigated to: https://www.example.com/login
+INFO     step_definitions.login_steps:login_steps.py:70 Step: When I enter email 'invalid@test.com' and password
+INFO     pages.login_page:login_page.py:47 Entering email: invalid@test.com
+INFO     pages.base_page:base_page.py:195 Filling element #email with value: invalid@test.com
+ERROR    pages.base_page:base_page.py:200 Failed to fill #email: Timeout 40000ms exceeded.
+INFO     utils.screenshot_helper:screenshot_helper.py:61 Screenshot captured: /home/runner/work/playwright-bdd-framework/playwright-bdd-framework/reports/screenshots/fill_error.png
+INFO     fixtures.browser_fixtures:browser_fixtures.py:97 Closing page
+INFO     fixtures.browser_fixtures:browser_fixtures.py:75 Closing browser context
+INFO     fixtures.browser_fixtures:browser_fixtures.py:45 Closing browser
+INFO     utils.browser_manager:browser_manager.py:190 Browser closed
+INFO     conftest:conftest.py:172 Finished test: test_login_with_invalid_credentials[invalid@test.com-wrong123-Invalid credentials]

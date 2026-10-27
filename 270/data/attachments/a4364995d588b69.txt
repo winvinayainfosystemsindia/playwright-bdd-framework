@@ -1,0 +1,8 @@
+INFO     conftest:conftest.py:168 Starting test: test_verify_page_main_heading
+INFO     fixtures.browser_fixtures:browser_fixtures.py:24 Creating browser manager (session scope)
+INFO     fixtures.browser_fixtures:browser_fixtures.py:42 Launching browser
+INFO     utils.browser_manager:browser_manager.py:39 Playwright started successfully
+INFO     conftest:conftest.py:172 Finished test: test_verify_page_main_heading
+INFO     conftest:conftest.py:168 Starting test: test_verify_page_main_heading
+INFO     fixtures.browser_fixtures:browser_fixtures.py:42 Launching browser
+INFO     conftest:conftest.py:172 Finished test: test_verify_page_main_heading
