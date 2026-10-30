@@ -1,0 +1,13 @@
+INFO     conftest:conftest.py:168 Starting test: test_registration_with_weak_password
+INFO     fixtures.browser_fixtures:browser_fixtures.py:42 Launching browser
+INFO     conftest:conftest.py:172 Finished test: test_registration_with_weak_password
+INFO     conftest:conftest.py:168 Starting test: test_registration_with_weak_password
+INFO     fixtures.browser_fixtures:browser_fixtures.py:42 Launching browser
+INFO     conftest:conftest.py:172 Finished test: test_registration_with_weak_password
+INFO     conftest:conftest.py:168 Starting test: test_registration_with_weak_password
+INFO     fixtures.browser_fixtures:browser_fixtures.py:42 Launching browser
+INFO     conftest:conftest.py:172 Finished test: test_registration_with_weak_password
+INFO     fixtures.browser_fixtures:browser_fixtures.py:27 Cleaning up browser manager
+INFO     utils.browser_manager:browser_manager.py:204 Starting browser cleanup...
+INFO     utils.browser_manager:browser_manager.py:199 Playwright stopped
+INFO     utils.browser_manager:browser_manager.py:209 Browser cleanup completed
