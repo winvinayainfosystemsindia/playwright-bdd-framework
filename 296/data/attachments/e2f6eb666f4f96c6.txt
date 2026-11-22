@@ -1,0 +1,6 @@
+INFO     conftest:conftest.py:168 Starting test: test_registration_with_weak_password
+INFO     fixtures.browser_fixtures:browser_fixtures.py:42 Launching browser
+INFO     conftest:conftest.py:172 Finished test: test_registration_with_weak_password
+INFO     conftest:conftest.py:168 Starting test: test_registration_with_weak_password
+INFO     fixtures.browser_fixtures:browser_fixtures.py:42 Launching browser
+INFO     conftest:conftest.py:172 Finished test: test_registration_with_weak_password
